@@ -80,6 +80,9 @@ h2 {
   font-size: .72rem; font-weight: 800; padding: 2px 10px; margin-left: 6px; vertical-align: middle;
 }
 
+.card.soldout { background: #d9c9b0; }
+.card.soldout h3, .card.soldout .price, .card.soldout .desc { opacity: .55; }
+.out { display: inline-block; background: var(--navy); color: #fff; font-family: var(--display); font-size: .95rem; padding: 8px 14px; border-radius: 999px; }
 .qty { display: inline-flex; align-items: center; gap: 4px; background: var(--paper); border: 3px solid var(--navy); border-radius: 999px; padding: 3px; }
 .qty button {
   width: 36px; height: 36px; border-radius: 50%; border: 0; cursor: pointer;
@@ -173,7 +176,7 @@ textarea { min-height: 80px; resize: vertical; }
     </label>
   </div>
   <label for="obs">Observações (sabores dos combos sortidos, recados)
-    <textarea id="obs" name="obs" placeholder="Ex.: no trio, quero 1 Zebrinha e 2 Basiquinhos"></textarea>
+    <textarea id="obs" name="obs" placeholder="Ex.: no trio, quero 1 Red Velvet e 2 Basiquinhos"></textarea>
   </label>
 
   <div class="summary" aria-live="polite">
@@ -206,7 +209,7 @@ textarea { min-height: 80px; resize: vertical; }
 var FLAVORS = [
   { id: "rv",  emoji: "💌", name: "Red Velvet",  price: 9,  info: "Próx. 50g",  desc: "Massa de Red Velvet com baunilha e chocolate branco" },
   { id: "bq",  emoji: "🍪", name: "Basiquinho",  price: 7,  info: "Próx. 50g",  desc: "Massa de baunilha e amêndoas com gotas de chocolate ao leite" },
-  { id: "zb",  emoji: "🦓", name: "Zebrinha",    price: 8,  info: "Próx. 50g",  desc: "Massa de cacau 50% com baunilha e chocolate branco" },
+  { id: "zb",  emoji: "🦓", name: "Zebrinha",    price: 8,  info: "Próx. 50g",  desc: "Massa de cacau 50% com baunilha e chocolate branco", soldout: true },
   { id: "rj",  emoji: "❤️", name: "Red Junbinho", price: 12, info: "Próx. 70g", desc: "Massa de Red Velvet com baunilha, chocolate branco e recheio de brigadeiro de leite ninho", special: true }
 ];
 var COMBOS = [
@@ -222,15 +225,18 @@ function brl(n) { return "R$ " + n.toFixed(2).replace(".", ","); }
 
 function card(p, isFlavor) {
   var el = document.createElement("article");
-  el.className = "card";
+  el.className = "card" + (p.soldout ? " soldout" : "");
+  var controle = p.soldout
+    ? '<span class="out" role="status">Esgotado</span>'
+    : '<div class="qty" role="group" aria-label="Quantidade de ' + p.name + '">' +
+      '<button type="button" data-id="' + p.id + '" data-d="-1" aria-label="Diminuir ' + p.name + '">−</button>' +
+      '<output id="q-' + p.id + '">0</output>' +
+      '<button type="button" data-id="' + p.id + '" data-d="1" aria-label="Aumentar ' + p.name + '">+</button></div>';
   el.innerHTML =
     '<div><h3>' + p.emoji + ' ' + p.name + (p.special ? '<span class="tag">especial</span>' : '') + '</h3>' +
     '<p class="price">' + brl(p.price) + (p.info ? ' <small>| ' + p.info + '</small>' : '') + '</p>' +
     '<p class="desc">' + p.desc + '</p></div>' +
-    '<div class="qty" role="group" aria-label="Quantidade de ' + p.name + '">' +
-    '<button type="button" data-id="' + p.id + '" data-d="-1" aria-label="Diminuir ' + p.name + '">−</button>' +
-    '<output id="q-' + p.id + '">0</output>' +
-    '<button type="button" data-id="' + p.id + '" data-d="1" aria-label="Aumentar ' + p.name + '">+</button></div>';
+    controle;
   return el;
 }
 FLAVORS.forEach(function (p) { document.getElementById("flavors").appendChild(card(p, true)); });
@@ -251,7 +257,7 @@ function buildMessage() {
   var data = document.getElementById("data").value;
   var local = document.getElementById("local").value.trim();
   var obs = document.getElementById("obs").value.trim();
-  var lines = ["🛸 Reserva Alien's Cookies", ""];
+  var lines = ["\uD83D\uDC7D Reserva Alien's Cookies", ""];
   all.forEach(function (p) { if (qty[p.id]) lines.push(qty[p.id] + "x " + p.name + " (" + brl(p.price * qty[p.id]) + ")"); });
   lines.push("", "Total: " + brl(total()));
   if (nome) lines.push("Nome: " + nome);
