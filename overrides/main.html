@@ -251,7 +251,7 @@ function buildMessage() {
   var data = document.getElementById("data").value;
   var local = document.getElementById("local").value.trim();
   var obs = document.getElementById("obs").value.trim();
-  var lines = ["🛸 Reserva Alien's Cookies", ""];
+  var lines = ["\uD83D\uDC7D Reserva Alien's Cookies", ""];
   all.forEach(function (p) { if (qty[p.id]) lines.push(qty[p.id] + "x " + p.name + " (" + brl(p.price * qty[p.id]) + ")"); });
   lines.push("", "Total: " + brl(total()));
   if (nome) lines.push("Nome: " + nome);
