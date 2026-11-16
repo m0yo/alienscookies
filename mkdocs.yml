@@ -3,6 +3,6 @@ site_description: Reservas de cookies caseirinhos, direto pra faculdade.
 # Troque SEU-USUARIO pelo usuário do GitHub (o nome do repositório deve ser alienscookies)
 site_url: https://SEU-USUARIO.github.io/alienscookies/
 theme:
-  name: null          # sem tema pronto: a página inteira vem de overrides/main.html
+  name: null          # sem tema pronto: a página inteira vem de overrides/index.html
   custom_dir: overrides
   locale: pt_BR
