@@ -79,7 +79,7 @@ function loadFlavors() {
     .then(function () { clearTimeout(timer); });
 }
 
-document.getElementById("flavors").innerHTML = '<p class="desc">Carregando sabores... 🛸</p>';
+document.getElementById("flavors").innerHTML = '<section class="hero"> <p class="script">Abduzindo cookies... 🛸</h1> </section>';
 loadFlavors().then(function () {
   renderMenu();
   renderSummary();
