@@ -5,7 +5,7 @@ var WA_BASE = "https://wa.me/5561984841703";
 
 /* URL do Web App do Apps Script (a que termina em /exec). Com ela, os sabores vêm da planilha.
    Vazia ou fora do ar: o site usa a lista abaixo como plano B. */
-var STOCK_API = "";
+var STOCK_API = "https://script.google.com/macros/s/AKfycbzVJNUGlyZcg6buVdIOoS14lRKYBNHJa7WOaVuH-a5sb_MQDIbCm70HyCZj1_JRjG1Gvw/exec";
 
 /* Plano B (sem controle de estoque). Em condições normais, a planilha manda. */
 var FLAVORS = [
