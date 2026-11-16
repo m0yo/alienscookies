@@ -1,0 +1,16 @@
+/* Tokens de design: cores, fontes e variáveis globais */
+:root {
+  --sky: #a9c4d2;
+  --sky-top: #2c6485;
+  --sky-deep: #8fb0c2;
+  --tan: #f0c58a;
+  --pink: #f4508a;
+  --navy: #2e5b7b;
+  --gold: #b3801a;
+  --paper: #fff8ec;
+
+  --display: "Bungee", "Impact", sans-serif;
+  --body: "Nunito", "Segoe UI", system-ui, sans-serif;
+
+  color-scheme: light;
+}
