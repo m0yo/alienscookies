@@ -6,7 +6,7 @@ var WA_BASE = "https://wa.me/5561984841703";
 var FLAVORS = [
   { id: "rv", emoji: "💌", name: "Red Velvet",   price: 9,  info: "Aprox. 50g", desc: "Massa de Red Velvet com baunilha e chocolate branco" },
   { id: "bq", emoji: "🍪", name: "Basiquinho",   price: 7,  info: "Aprox. 50g", desc: "Massa de baunilha e amêndoas com gotas de chocolate ao leite" },
-  { id: "zb", emoji: "🦓", name: "Zebrinha",     price: 8,  info: "Aprox. 50g", desc: "Massa de cacau 50% com baunilha e chocolate branco", soldout: false },
+  { id: "zb", emoji: "🦓", name: "Zebrinha",     price: 8,  info: "Aprox. 50g", desc: "Massa de cacau 50% com baunilha e chocolate branco" },
   { id: "rj", emoji: "❤️", name: "Red Junbinho", price: 12, info: "Aprox. 70g", desc: "Massa de Red Velvet com baunilha, chocolate branco e recheio de brigadeiro de leite ninho", special: true }
 ];
 
