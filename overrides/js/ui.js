@@ -21,7 +21,7 @@ function createCard(p) {
   el.innerHTML =
     '<div><h3>' + esc(p.emoji || "") + ' ' + esc(p.name) + (p.special ? '<span class="tag">especial</span>' : '') + '</h3>' +
     '<p class="price">' + brl(p.price) + (p.info ? ' <small>| ' + esc(p.info) + '</small>' : '') +
-    (!p.soldout && typeof p.stock === "number" && p.stock <= 3 ? ' <small>| Restam ' + p.stock + '</small>' : '') + '</p>' +
+    (!p.soldout && typeof p.stock === "number" ? ' <small>| Disponivéis ' + p.stock + '</small>' : '') + '</p>' +
     '<p class="desc">' + esc(p.desc || "") + '</p></div>' +
     controle;
   return el;
