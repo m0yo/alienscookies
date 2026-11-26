@@ -1,0 +1,35 @@
+/* Cabeçalho: nave, título e estrelas */
+.hero { position: relative; text-align: center; padding: 8px 0; }
+
+.hero .script {
+  font-family: var(--display); font-size: 1.1rem; letter-spacing: .12em;
+  color: #fff; text-shadow: 0 2px 6px rgba(20, 50, 80, .55); margin: 0;
+}
+.hero h1 {
+  font-family: var(--display); font-weight: 400;
+  font-size: clamp(2.6rem, 12vw, 4.6rem); line-height: .95; margin: 4px 0 12px;
+  color: var(--tan); -webkit-text-stroke: 3px var(--pink); paint-order: stroke fill;
+  text-shadow: 4px 4px 0 var(--pink);
+  text-wrap: balance;
+}
+.hero p {
+  margin: 0 auto; max-width: 34ch;
+  color: #fff; text-shadow: 0 2px 6px rgba(20, 50, 80, .55);
+  font-weight: 700; font-size: 1.1rem;
+}
+
+.ufo {
+  width: 160px; max-width: 45vw; height: auto;
+  display: block; margin: 0 auto 4px;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float { 50% { transform: translateY(-8px) rotate(2deg); } }
+
+.star { position: absolute; width: 38px; color: var(--gold); }
+.s1 { top: 10px; left: 2%; transform: rotate(-14deg); }
+.s2 { top: 70px; right: 3%; width: 46px; transform: rotate(12deg); }
+.s3 { bottom: -6px; left: 14%; width: 28px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ufo { animation: none; }
+}
