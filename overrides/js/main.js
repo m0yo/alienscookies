@@ -12,7 +12,8 @@ function setFormVisible(visible) {
 document.addEventListener("click", function (e) {
   var b = e.target.closest("button[data-id]");
   if (!b) return;
-  changeQty(b.dataset.id, Number(b.dataset.d));
+  var ok = changeQty(b.dataset.id, Number(b.dataset.d));
+  statusEl.textContent = ok ? "" : "Esse é o máximo que temos em estoque no momento. 🛸";
   syncQtyDisplays();
   renderSummary();
 });
@@ -58,5 +59,28 @@ document.getElementById("again").addEventListener("click", function () {
     t.getFullYear() + "-" + String(t.getMonth() + 1).padStart(2, "0") + "-" + String(t.getDate()).padStart(2, "0");
 })();
 
-renderMenu();
-renderSummary();
+/* Lê os sabores e o estoque da planilha (Apps Script). Se falhar, segue com a lista de data.js. */
+function loadFlavors() {
+  if (!STOCK_API) return Promise.resolve();
+
+  var ctrl = new AbortController();
+  var timer = setTimeout(function () { ctrl.abort(); }, 8000);
+
+  return fetch(STOCK_API, { signal: ctrl.signal })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data.success || !Array.isArray(data.products) || data.products.length === 0) {
+        throw new Error(data.error || "Resposta vazia");
+      }
+      FLAVORS = data.products;
+      setProducts();
+    })
+    .catch(function (err) { console.warn("Estoque indisponível, usando o cardápio padrão.", err); })
+    .then(function () { clearTimeout(timer); });
+}
+
+document.getElementById("flavors").innerHTML = '<section class="hero"> <p class="script">Abduzindo cookies... 🛸</h1> </section>';
+loadFlavors().then(function () {
+  renderMenu();
+  renderSummary();
+});

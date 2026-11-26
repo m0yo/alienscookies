@@ -1,7 +1,14 @@
 /* Estado do pedido: quantidades, total e texto da mensagem do WhatsApp */
-var ALL_PRODUCTS = FLAVORS.concat(COMBOS);
+var ALL_PRODUCTS = [];
 var qty = {};
-ALL_PRODUCTS.forEach(function (p) { qty[p.id] = 0; });
+
+/* Chame de novo sempre que FLAVORS mudar (ex.: depois de ler a planilha) */
+function setProducts() {
+  ALL_PRODUCTS = FLAVORS.concat(COMBOS);
+  qty = {};
+  ALL_PRODUCTS.forEach(function (p) { qty[p.id] = 0; });
+}
+setProducts();
 
 function brl(n) {
   return "R$ " + n.toFixed(2).replace(".", ",");
@@ -11,8 +18,18 @@ function total() {
   return ALL_PRODUCTS.reduce(function (sum, p) { return sum + p.price * qty[p.id]; }, 0);
 }
 
+/* Limite por produto: 30, ou o estoque da planilha se for menor */
+function maxQty(p) {
+  return typeof p.stock === "number" ? Math.min(30, p.stock) : 30;
+}
+
+/* Devolve false se bateu no limite do estoque */
 function changeQty(id, delta) {
-  qty[id] = Math.max(0, Math.min(30, qty[id] + delta));
+  var p = ALL_PRODUCTS.filter(function (x) { return x.id === id; })[0];
+  if (!p) return true;
+  var wanted = qty[id] + delta;
+  qty[id] = Math.max(0, Math.min(maxQty(p), wanted));
+  return !(delta > 0 && wanted > qty[id]);
 }
 
 function resetCart() {
